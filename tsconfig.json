@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "es2016",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "typeRoots": ["node_modules/@types"],
+    "esModuleInterop": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": false,
+    "skipLibCheck": true
+  }
+}
