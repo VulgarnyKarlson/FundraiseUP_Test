@@ -1,7 +1,6 @@
 import { Db } from "mongodb";
 import { Customer } from "./interfaces";
 
-let i = 0;
 export class BatchCollector {
   private db: Db;
   private batchSize: number;
@@ -30,7 +29,6 @@ export class BatchCollector {
       this.dto_update.push(customer);
     }
 
-    console.log("added", ++i);
     if (this.batchTimeout === 0) {
       await this.flush();
     } else {
@@ -39,10 +37,9 @@ export class BatchCollector {
         await this.flush();
       } else if (
         typeof this.timer === "undefined" ||
-          // @ts-ignore
+        // @ts-ignore
         this.timer["_destroyed"]
       ) {
-        console.log("setting timeout");
         this.timer = setTimeout(this.flush.bind(this), this.batchTimeout);
       }
     }
@@ -54,7 +51,6 @@ export class BatchCollector {
     }
     try {
       if (this.dto_insert.length > 0) {
-        console.log("inserting", this.dto_insert.length, "documents");
         const data = JSON.parse(JSON.stringify(this.dto_insert));
         this.dto_insert = [];
         await this.db.collection(this.collectionName).insertMany(data);
